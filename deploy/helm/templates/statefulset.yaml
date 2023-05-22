@@ -81,16 +81,22 @@ spec:
           startupProbe:
             # The `livenessProbe` and `readinessProbe` will be disabled until the `startupProbe` is successful.
             httpGet:
-              path: /
+              path: {{ .Values.probes.startupProbe.api | default "/" | quote }}
               port: http
+              failureThreshold: {{ .Values.probes.startupProbe.failureThreshold | default 3 | quote }}
+              periodSeconds: {{ .Values.probes.startupProbe.periodSeconds | default 60 | quote }}
           livenessProbe:
             httpGet:
-              path: /
+              path: {{ .Values.probes.livenessProbe.api | default "/" | quote }}
               port: http
+              failureThreshold: {{ .Values.probes.livenessProbe.failureThreshold | default 3 | quote }}
+              periodSeconds: {{ .Values.probes.livenessProbe.periodSeconds | default 10 | quote }}
           readinessProbe:
             httpGet:
-              path: /api/v1/users/me
+              path: {{ .Values.probes.readinessProbe.api | default "/" | quote }}
               port: http
+              failureThreshold: {{ .Values.probes.readinessProbe.failureThreshold | default 3 | quote }}
+              periodSeconds: {{ .Values.probes.readinessProbe.periodSeconds | default 10 | quote }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
