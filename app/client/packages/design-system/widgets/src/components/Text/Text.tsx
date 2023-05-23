@@ -1,31 +1,34 @@
-import React from "react";
+import type { Ref } from "react";
+import React, { forwardRef } from "react";
 import { StyledText } from "./index.styled";
-import type { fontFamilyTypes } from "../../utils/typography";
+import { useThemeContext } from "@design-system/theming";
 
-export type TextProps = {
-  children: React.ReactNode;
-  isLoading?: boolean;
-  isDisabled?: boolean;
-  fontFamily?: fontFamilyTypes;
-  fontSize?: string;
-  color?: string;
+export interface TextProps {
+  variant?: "body" | "footnote" | "heading";
+  type?: "default" | "neutral" | "positive" | "negative" | "warn";
   fontWeight?: "normal" | "bold" | "bolder" | "lighter";
-  textDecoration?: "none" | "underline" | "line-through";
   fontStyle?: "normal" | "italic";
   textAlign?: "left" | "center" | "right";
-  capHeight?: number;
-  lineGap?: number;
-  as?: keyof JSX.IntrinsicElements;
   lineClamp?: number;
+  as?: keyof JSX.IntrinsicElements;
   className?: string;
-};
+  children: React.ReactNode;
+}
 
-export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
-  (props, ref) => {
-    const { children, ...rest } = props;
+export const Text = forwardRef(
+  (props: TextProps, ref: Ref<HTMLParagraphElement>) => {
+    const { children, type = "default", variant = "body", ...rest } = props;
+
+    const { typography } = useThemeContext();
 
     return (
-      <StyledText ref={ref} {...rest}>
+      <StyledText
+        ref={ref}
+        type={type}
+        variant={variant}
+        {...rest}
+        typography={typography}
+      >
         <span>{children}</span>
       </StyledText>
     );

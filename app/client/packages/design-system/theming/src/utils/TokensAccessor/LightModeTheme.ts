@@ -14,7 +14,7 @@ export class LightModeTheme implements ColorModeTheme {
   private readonly seedIsVeryLight: boolean;
   private readonly seedIsYellow: boolean;
 
-  constructor(private color: ColorTypes) {
+  constructor(color: ColorTypes) {
     const {
       chroma,
       color: seedColor,

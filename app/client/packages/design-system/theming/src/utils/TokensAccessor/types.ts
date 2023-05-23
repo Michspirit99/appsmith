@@ -12,7 +12,9 @@ export type TokenType =
   | "borderRadius"
   | "boxShadow"
   | "borderWidth"
-  | "opacity";
+  | "opacity"
+  | "fontFamilies"
+  | "fontSizes";
 
 export interface Token {
   value: string | number;
@@ -27,6 +29,7 @@ export interface TokenSource {
   boxShadow?: TokenObj;
   borderWidth?: TokenObj;
   opacity?: TokenObj;
+  fontFamilies?: TokenObj;
 }
 
 export type TokenObj = { [key: string]: string | number };

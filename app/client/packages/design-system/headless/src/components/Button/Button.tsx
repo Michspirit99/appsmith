@@ -7,7 +7,6 @@ import type { AriaButtonProps as SpectrumAriaBaseButtonProps } from "@react-type
 
 export interface ButtonProps extends SpectrumAriaBaseButtonProps {
   className?: string;
-  visuallyDisabled?: boolean;
 }
 
 export type ButtonRef = React.Ref<HTMLButtonElement>;

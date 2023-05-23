@@ -8,7 +8,6 @@ import type {
 import { Text } from "../Text";
 import { Spinner } from "../Spinner";
 import { StyledButton } from "./index.styled";
-import type { fontFamilyTypes } from "../../utils/typography";
 
 export type ButtonVariants = "primary" | "secondary" | "tertiary";
 
@@ -18,9 +17,7 @@ export interface ButtonProps extends Omit<HeadlessButtonProps, "className"> {
    */
   variant?: ButtonVariants;
   isLoading?: boolean;
-  fontFamily?: fontFamilyTypes;
   isFitContainer?: boolean;
-  isFocused?: boolean;
   icon?: React.ReactNode;
   iconPosition?: "start" | "end";
 }
@@ -29,7 +26,6 @@ export const Button = forwardRef(
   (props: ButtonProps, ref: HeadlessButtonRef) => {
     const {
       children,
-      fontFamily,
       icon,
       iconPosition = "start",
       isFitContainer = false,
@@ -52,9 +48,7 @@ export const Button = forwardRef(
       return (
         <>
           {icon}
-          <Text fontFamily={fontFamily} lineClamp={1}>
-            {children}
-          </Text>
+          <Text lineClamp={1}>{children}</Text>
         </>
       );
     };

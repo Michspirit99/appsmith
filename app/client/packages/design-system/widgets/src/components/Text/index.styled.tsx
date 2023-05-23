@@ -1,29 +1,8 @@
 import styled, { css } from "styled-components";
 
 import type { TextProps } from "./Text";
-import { createTypographyStyles } from "../../utils/typography";
 
-const shouldForwardProp = (prop: any) => {
-  const propsToOmit = [
-    "fontWeight",
-    "fontStyle",
-    "color",
-    "textAlign",
-    "textDecoration",
-    "lineClamp",
-  ];
-
-  return !propsToOmit.includes(prop);
-};
-
-const typographyStyles = css`
-  ${(props: TextProps) => {
-    const { capHeight = 10, fontFamily, lineGap = 8 } = props;
-    const styles = createTypographyStyles({ fontFamily, lineGap, capHeight });
-
-    return styles;
-  }}
-`;
+type StyledTextProp = TextProps & any;
 
 /**
  * adds Truncate styles
@@ -54,15 +33,31 @@ const truncateStyles = css`
   }}
 `;
 
-export const StyledText = styled.div.withConfig({
-  shouldForwardProp,
-})<TextProps>`
+export const StyledText = styled.div<StyledTextProp>`
   color: ${({ color }) => color};
   font-weight: ${({ fontWeight }) => fontWeight};
-  text-decoration: ${({ textDecoration }) => textDecoration};
   font-style: ${({ fontStyle }) => fontStyle};
   text-align: ${({ textAlign }) => textAlign};
 
+  ${(props) =>
+    props.variant === "body" &&
+    css`
+      ${props.typography.body}
+    `}
+
+  ${(props) =>
+    props.variant === "footnote" &&
+    css`
+      ${props.typography.footnote}
+    `}
+
+  ${(props) =>
+    props.variant === "heading" &&
+    css`
+      ${props.typography.heading}
+      font-weight: bold
+    `}
+
+
   ${truncateStyles}
-  ${typographyStyles}
 `;

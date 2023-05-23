@@ -20,12 +20,14 @@ export class TokensAccessor {
   private boxShadow?: TokenObj;
   private borderWidth?: TokenObj;
   private opacity?: TokenObj;
+  private fontFamilies?: TokenObj;
 
   constructor({
     borderRadius,
     borderWidth,
     boxShadow,
     colorMode,
+    fontFamilies,
     opacity,
     rootUnit,
     seedColor,
@@ -37,6 +39,7 @@ export class TokensAccessor {
     this.boxShadow = boxShadow;
     this.borderWidth = borderWidth;
     this.opacity = opacity;
+    this.fontFamilies = fontFamilies;
   }
 
   updateSeedColor = (color: ColorTypes) => {
@@ -67,6 +70,10 @@ export class TokensAccessor {
     this.opacity = opacity;
   };
 
+  updateFontFamilies = (fontFamilies: TokenObj) => {
+    this.fontFamilies = fontFamilies;
+  };
+
   getAllTokens = () => {
     return {
       ...this.getColors(),
@@ -76,6 +83,7 @@ export class TokensAccessor {
       ...this.getBoxShadow(),
       ...this.getBorderWidth(),
       ...this.getOpacity(),
+      ...this.getFontFamilies(),
     };
   };
 
@@ -102,10 +110,11 @@ export class TokensAccessor {
   };
 
   getSizing = () => {
-    if (this.rootUnit == null) return {} as ThemeTokens;
+    const rootUnit = this.rootUnit ?? 4;
+    // if (this.rootUnit == null) return {} as ThemeTokens;
 
     const sizing = {
-      rootUnit: `${this.rootUnit}px`,
+      rootUnit: `${rootUnit}px`,
     };
 
     return this.createTokenObject(sizing, "sizing");
@@ -146,6 +155,12 @@ export class TokensAccessor {
     if (this.opacity == null) return {} as ThemeTokens;
 
     return this.createTokenObject(this.opacity, "opacity");
+  };
+
+  getFontFamilies = () => {
+    if (this.fontFamilies == null) return {} as ThemeTokens;
+
+    return this.createTokenObject(this.fontFamilies, "fontFamilies");
   };
 
   private get isLightMode() {

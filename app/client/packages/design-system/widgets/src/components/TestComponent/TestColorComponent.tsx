@@ -181,7 +181,7 @@ export const TestColorComponent = (props: any) => {
                     data-hovered={isHovered ? "" : undefined}
                     data-variant={variant}
                   >
-                    <Text capHeight={6.5} lineClamp={2}>
+                    <Text lineClamp={2} variant="footnote">
                       {children({
                         seed: getSeed(),
                         derived: getDerived(),
